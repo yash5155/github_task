@@ -25,6 +25,9 @@ db = client["student_db"]
 # Select collection
 collection = db["students"]
 
+# Select collection for todo items
+todo_collection = db["todo_items"]
+
 
 # Home page
 @app.route("/")
@@ -42,6 +45,17 @@ def submit():
         return redirect(url_for("success"))  # Redirect on success
     except Exception as e:
         return render_template("form.html", error=str(e))  # Show error
+
+
+# Todo item submission
+@app.route("/submittodoitem", methods=["POST"])
+def submit_todo_item():
+    try:
+        todo_item = request.form["name"]  # Read todo item
+        todo_collection.insert_one({"todo_item": todo_item})  # Insert todo item
+        return render_template("todo.html")  # Show todo page again
+    except Exception as e:
+        return render_template("todo.html", error=str(e))  # Show error
 
 
 # Success page
