@@ -32,6 +32,12 @@ def home():
     return render_template("form.html")
 
 
+# To-Do page
+@app.route("/todo")
+def todo():
+    return render_template("todo.html")
+
+
 # Form submission
 @app.route("/submit", methods=["POST"])
 def submit():
